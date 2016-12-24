@@ -11,7 +11,7 @@ $.getJSON(url,function(data){
         var buildingName = '';
         if(tempClassSections[j].meetings.length>0){
             buildingName = tempClassSections[j].meetings[0].bldgDescr;
-          
+
         }
         if(buildingName!=null){
           places.push(buildingName);
