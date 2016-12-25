@@ -28,7 +28,7 @@ function getData() {
                     buildingName = tempClassSections[j].meetings[0].bldgDescr;
 
                 }
-                if (buildingName != null) {
+                if (buildingName) {
                     places.push(buildingName);
                 }
             }
@@ -45,14 +45,11 @@ function getData() {
 
 
 
-function searchPlace(inputs){
-  var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
-  var keywords = inputs.split(" ");
-  for(var i = 0; i<keywords.length; i++){
-    searchUrl+=keywords[i];
-    searchUrl+="%20"; //space
-  }
-  searchUrl += "cornell&key=AIzaSyBg54A5AxA3uYMqvCb2NYJ6VB2d-qC38RI";
+
+function searchPlace(inputs) {
+    var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
+    searchUrl += inputs.replace(/\s/g, "%20");
+    searchUrl += "cornell&key=AIzaSyBg54A5AxA3uYMqvCb2NYJ6VB2d-qC38RI";
 
     $.getJSON(searchUrl, function(data) {
         var position = {
