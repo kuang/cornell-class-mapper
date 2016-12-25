@@ -33,7 +33,12 @@ function getData() {
                 }
             }
         }
-        console.log(searchPlace(places[0]));
+        uniq(places);
+        console.log(places);
+        // for(var i = 0; i<places.length; i++){
+        //   console.log(places[i]);
+        //   searchPlace(places[i]);
+        // }
 
     });
 }
@@ -41,10 +46,8 @@ function getData() {
 
 
 function searchPlace(inputs){
-  console.log(inputs);
   var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
   var keywords = inputs.split(" ");
-  console.log(keywords);
   for(var i = 0; i<keywords.length; i++){
     searchUrl+=keywords[i];
     searchUrl+="%20"; //space
@@ -62,4 +65,9 @@ function searchPlace(inputs){
         });
     });
 
+}
+function uniq(a) {
+    return a.sort().filter(function(item, pos, ary) {
+        return !pos || item != ary[pos - 1];
+    })
 }
