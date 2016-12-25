@@ -50,7 +50,7 @@ function searchPlace(inputs){
     searchUrl+="%20"; //space
   }
   searchUrl += "cornell&key=AIzaSyBg54A5AxA3uYMqvCb2NYJ6VB2d-qC38RI";
-  
+
     $.getJSON(searchUrl, function(data) {
         var position = {
             lat: data.results[0].geometry.location.lat,
