@@ -36,22 +36,10 @@ function getData(){
 
 
   });
-  // searchPlace(places[0]);
+  searchPlace("Olin Hall");
 }
 
 
-
-
-
-// function searchPlace(inputs){
-//   var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
-//   for(var i = 0; i<inputs.length; i++){
-//     searchUrl+=inputs[i];
-//     searchUrl+='%20'; //space
-//   }
-//   searchUrl += "cornell&key=AIzaSyBg54A5AxA3uYMqvCb2NYJ6VB2d-qC38RI";
-//   return searchUrl;
-// }
 function searchPlace(inputs){
   console.log(inputs);
   var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
