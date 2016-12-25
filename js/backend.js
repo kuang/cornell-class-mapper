@@ -49,7 +49,7 @@ function getData() {
 function searchPlace(inputs) {
     var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
     searchUrl += inputs.replace(/\s/g, "%20");
-    searchUrl += "cornell&key=AIzaSyBg54A5AxA3uYMqvCb2NYJ6VB2d-qC38RI";
+    searchUrl += "%20cornell&key=AIzaSyBg54A5AxA3uYMqvCb2NYJ6VB2d-qC38RI";
 
     $.getJSON(searchUrl, function(data) {
         var position = {
