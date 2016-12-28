@@ -47,12 +47,12 @@ function getData() {
             }
         }
 
-        console.log(places);
+        // console.log(places);
         // searchPlace("derp");
-        for (var i = 0; i < places.length; i++) {
-            // console.log(places[i]);
-            searchPlace(places[i]);
-        }
+        // for (var i = 0; i < places.length; i++) {
+        // console.log(places[i]);
+        searchPlace(places[0]);
+        // }
 
     });
 }
@@ -60,17 +60,22 @@ function getData() {
 function searchPlace(inputs) {
     var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
     searchUrl += inputs.replace(/\s/g, "%20");
-    searchUrl += "%20cornell&key=AIzaSyAtAfFoVO4LdbhQhb54w_cCVn9pgVSUxqo?callback=?";
-    $.getJSON(searchUrl, function(result) {
-        console.log(result);
-        var position = {
-            lat: response.results[0].geometry.location.lat,
-            lng: response.results[0].geometry.location.lng
-        };
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map
-        });
+    searchUrl += "%20cornell&key=AIzaSyAtAfFoVO4LdbhQhb54w_cCVn9pgVSUxqo";
+    $.ajax({
+        url: searchUrl,
+        dataType: "jsonp",
+        jsonpCallback: "pullInfo"
     });
+}
 
+function pullInfo(response) {
+    console.log(response);
+    var position = {
+        lat: response.results[0].geometry.location.lat,
+        lng: response.results[0].geometry.location.lng
+    };
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map
+    });
 }
