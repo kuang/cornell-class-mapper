@@ -16,19 +16,30 @@ function initMap() {
     getData();
 }
 
+//TODO add param for retrieving specific subjects
 function getData() {
     $.getJSON(url, function(data) {
+        //retrieve all classes under param
         var classes = data.data.classes;
+        
         for (var i = 0; i < classes.length; i++) {
+            //retrieve all sections, LEC, DIS, LAB
             tempClassSections = classes[i].enrollGroups[0].classSections;
             // console.log(tempClassSections.length);
+            
+            //retrieve the building for each section
             for (var j = 0; j < tempClassSections.length; j++) {
+                
                 var buildingName = '';
+                
+                //if the section has a building location attached to it
                 if (tempClassSections[j].meetings.length > 0) {
                     buildingName = tempClassSections[j].meetings[0].bldgDescr;
 
                 }
-                if (buildingName) {
+
+                //probably not efficient way of checking uniqueness lol
+                if (buildingName && places.indexOf(buildingName) == -1) {
                     places.push(buildingName);
                 }
             }
