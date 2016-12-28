@@ -18,35 +18,35 @@ function initMap() {
 //TODO add param for retrieving specific subjects
 function getData() {
     $.getJSON(url, function(data) {
-            //retrieve all classes under param
-            var classes = data.data.classes;
+        //retrieve all classes under param
+        var classes = data.data.classes;
 
-            for (var i = 0; i < classes.length; i++) {
-                //NOTE: enrollGroups length should never be more than 2 or 3 anyway
-                for (var k = 0; k < enrollGroups.length; k++) {}
-                //retrieve all sections, LEC, DIS, LAB
-                tempClassSections = classes[i].enrollGroups[k].classSections;
-                // console.log(tempClassSections.length);
+        for (var i = 0; i < classes.length; i++) {
+            //NOTE: enrollGroups length should never be more than 2 or 3 anyway
+            for (var k = 0; k < enrollGroups.length; k++) {}
+            //retrieve all sections, LEC, DIS, LAB
+            tempClassSections = classes[i].enrollGroups[k].classSections;
+            // console.log(tempClassSections.length);
 
-                //retrieve the building for each section
-                for (var j = 0; j < tempClassSections.length; j++) {
+            //retrieve the building for each section
+            for (var j = 0; j < tempClassSections.length; j++) {
 
-                    var buildingName = '';
+                var buildingName = '';
 
-                    //if the section has a building location attached to it
-                    if (tempClassSections[j].meetings.length > 0) {
-                        buildingName = tempClassSections[j].meetings[0].bldgDescr;
+                //if the section has a building location attached to it
+                if (tempClassSections[j].meetings.length > 0) {
+                    buildingName = tempClassSections[j].meetings[0].bldgDescr;
 
-                    }
+                }
 
-                    //probably not efficient way of checking uniqueness lol
-                    if (buildingName && places.indexOf(buildingName) == -1) {
-                        places.push(buildingName);
-                    }
+                //probably not efficient way of checking uniqueness lol
+                if (buildingName && places.indexOf(buildingName) == -1) {
+                    places.push(buildingName);
                 }
             }
         }
-        console.log(places);
+
+        // console.log(places);
         // for(var i = 0; i<places.length; i++){
         //   console.log(places[i]);
         //   searchPlace(places[i]);
