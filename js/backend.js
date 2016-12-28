@@ -1,4 +1,4 @@
-var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=HADM"; //cs classes in spring
+var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=AEP"; //cs classes in spring
 var places = [];
 var counter = 0;
 var map;
@@ -48,7 +48,7 @@ function getData() {
         }
 
         console.log(places);
-
+        // searchPlace("derp");
         for (var i = 0; i < places.length; i++) {
             // console.log(places[i]);
             searchPlace(places[i]);
@@ -60,12 +60,12 @@ function getData() {
 function searchPlace(inputs) {
     var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
     searchUrl += inputs.replace(/\s/g, "%20");
-    searchUrl += "%20cornell&key=AIzaSyBg54A5AxA3uYMqvCb2NYJ6VB2d-qC38RI";
-
-    $.getJSON(searchUrl, function(data) {
+    searchUrl += "%20cornell&key=AIzaSyAtAfFoVO4LdbhQhb54w_cCVn9pgVSUxqo?callback=?";
+    $.getJSON(searchUrl, function(result) {
+        console.log(result);
         var position = {
-            lat: data.results[0].geometry.location.lat,
-            lng: data.results[0].geometry.location.lng
+            lat: response.results[0].geometry.location.lat,
+            lng: response.results[0].geometry.location.lng
         };
         var marker = new google.maps.Marker({
             position: position,
