@@ -1,4 +1,4 @@
-var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=AEP"; //cs classes in spring
+var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=CS"; //cs classes in spring
 var places = [];
 var counter = 0;
 var map, service;
@@ -61,13 +61,14 @@ function searchPlace(input) {
     var req = {
         query: input,
         location: cornell,
-        radius: 1700
+        radius: '100'
     }
     service.textSearch(req, processData);
 }
 
 function processData(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
+    if (status == google.maps.places.PlacesServiceStatus.OK 
+        && map.getBounds().contains(results[0].geometry.location)) {
         placeMarker(results[0].geometry.location, results[0].name);
     } else {
         console.log("Error: " + status);
