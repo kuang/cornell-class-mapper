@@ -2,9 +2,8 @@ var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&s
 var places = [];
 var counter = 0;
 var map, service;
+
 var cornell;
-
-
 function initMap() {
     // Initialize locations
     cornell = new google.maps.LatLng(42.447909, -76.477998); // Campus center
@@ -12,7 +11,7 @@ function initMap() {
         zoom: 15,
         center: cornell
     });
-    service = new google.maps.places.PlacesService(map); // For searching locations
+    service = new google.maps.places.PlacesService(map);
     getData();
 }
 
@@ -64,22 +63,18 @@ function searchPlace(input) {
         location: cornell,
         radius: 1700
     }
-    service.textSearch(req, processData);
+    service.textSearch(req, placeMarker);
 }
 
-function processData(results) {
-    placeMarker(results[0].geometry.location, results[0].name);
-}
-
-function placeMarker(latlng, name) {
+function placeMarker(results) {
     var marker = new google.maps.Marker({
-        position: latlng,
+        position: results[0].geometry.location,
         map: map
     });
     var infowindow = new google.maps.InfoWindow({
-        content: name
+        content: results[0].name
     });
     marker.addListener("click", function() {
         infowindow.open(map, marker);
-    });
+    })
 }
