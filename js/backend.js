@@ -1,17 +1,26 @@
 var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=AEP"; //cs classes in spring
 var places = [];
 var counter = 0;
-var map;
+var map, service;
+var cornell = {
+    lat: 42.447909,
+    lng: -76.477998
+};
+var cornellne = {
+        lat: 42.446171,
+        lng: -76.489461
+    },
+    cornellsw = {
+        lat: 42.446191,
+        lng: -76.489469
+    };
 
 function initMap() {
-    var cornell = {
-        lat: 42.447909,
-        lng: -76.477998
-    };
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: cornell
     });
+    service = new google.maps.places.PlacesService(map);
     getData();
 }
 
@@ -49,33 +58,32 @@ function getData() {
 
         // console.log(places);
         // searchPlace("derp");
-        // for (var i = 0; i < places.length; i++) {
-        // console.log(places[i]);
-        searchPlace(places[0]);
-        // }
+        for (var i = 0; i < places.length; i++) {
+            // console.log(places[i]);
+            searchPlace(places[i]);
+        }
 
     });
 }
 
-function searchPlace(inputs) {
-    var searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=";
-    searchUrl += inputs.replace(/\s/g, "%20");
-    searchUrl += "%20cornell&key=AIzaSyAtAfFoVO4LdbhQhb54w_cCVn9pgVSUxqo";
-    $.ajax({
-        url: searchUrl,
-        dataType: "jsonp",
-        jsonpCallback: "pullInfo"
-    });
+function searchPlace(input) {
+    var bounds = new google.maps.LatLngBounds(cornellsw, cornellne);
+    var req = {
+        query: input,
+        bounds: bounds
+    }
+    service.textSearch(req, placeMarker);
 }
 
-function pullInfo(response) {
-    console.log(response);
-    var position = {
-        lat: response.results[0].geometry.location.lat,
-        lng: response.results[0].geometry.location.lng
-    };
+function placeMarker(results) {
     var marker = new google.maps.Marker({
-        position: position,
+        position: results[0].geometry.location,
         map: map
     });
+    var infowindow = new google.maps.InfoWindow({
+        content: results[0].name
+    });
+    marker.addListener("click", function() {
+        infowindow.open(map, marker);
+    })
 }
