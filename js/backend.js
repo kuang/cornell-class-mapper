@@ -2,25 +2,19 @@ var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&s
 var places = [];
 var counter = 0;
 var map, service;
-var cornell = {
-    lat: 42.447909,
-    lng: -76.477998
-};
-var cornellne = {
-        lat: 42.446171,
-        lng: -76.489461
-    },
-    cornellsw = {
-        lat: 42.446191,
-        lng: -76.489469
-    };
+var cornell, cornellsw, cornellne;
+
 
 function initMap() {
+    // Initialize locations
+    cornell = new google.maps.LatLng(42.447909, -76.477998); // Campus center
+    cornellsw = new google.maps.LatLng(42.440810, -76.494731); // Southwestern boundary of campus
+    cornellne = new google.maps.LatLng(42.467209, -76.450206); // Northeastern boundary of campus
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: cornell
     });
-    service = new google.maps.places.PlacesService(map);
+    service = new google.maps.places.PlacesService(map); // For searching locations
     getData();
 }
 
@@ -72,18 +66,22 @@ function searchPlace(input) {
         query: input,
         bounds: bounds
     }
-    service.textSearch(req, placeMarker);
+    service.textSearch(req, processData);
 }
 
-function placeMarker(results) {
+function processData(results) {
+    placeMarker(results[0].geometry.location, results[0].name);
+}
+
+function placeMarker(latlng, name) {
     var marker = new google.maps.Marker({
-        position: results[0].geometry.location,
+        position: latlng,
         map: map
     });
     var infowindow = new google.maps.InfoWindow({
-        content: results[0].name
+        content: name
     });
     marker.addListener("click", function() {
         infowindow.open(map, marker);
-    })
+    });
 }
