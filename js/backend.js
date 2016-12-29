@@ -8,8 +8,6 @@ var cornell, cornellsw, cornellne;
 function initMap() {
     // Initialize locations
     cornell = new google.maps.LatLng(42.447909, -76.477998); // Campus center
-    // cornellsw = new google.maps.LatLng(42.440810, -76.494731); // Southwestern boundary of campus
-    // cornellne = new google.maps.LatLng(42.467209, -76.450206); // Northeastern boundary of campus
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: cornell
@@ -61,7 +59,6 @@ function getData() {
 }
 
 function searchPlace(input) {
-    var bounds = new google.maps.LatLngBounds(cornellsw, cornellne);
     var req = {
         query: input,
         location: cornell,
