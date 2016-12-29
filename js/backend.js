@@ -66,8 +66,12 @@ function searchPlace(input) {
     service.textSearch(req, processData);
 }
 
-function processData(results) {
-    placeMarker(results[0].geometry.location, results[0].name);
+function processData(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        placeMarker(results[0].geometry.location, results[0].name);
+    } else {
+        console.log("Error: " + status);
+    }
 }
 
 function placeMarker(latlng, name) {
