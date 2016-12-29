@@ -2,7 +2,7 @@ var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&s
 var places = [];
 var counter = 0;
 var map, service;
-var cornell, cornellsw, cornellne;
+var cornell;
 
 
 function initMap() {
