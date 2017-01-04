@@ -47,7 +47,7 @@ function getData() {
             }
         }
 
-        // console.log(places);
+        console.log(places);
         // searchPlace("derp");
         for (var i = 0; i < places.length; i++) {
             // console.log(places[i]);
@@ -67,8 +67,8 @@ function searchPlace(input) {
 }
 
 function processData(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK 
-        && map.getBounds().contains(results[0].geometry.location)) {
+    if (status == google.maps.places.PlacesServiceStatus.OK &&
+        map.getBounds().contains(results[0].geometry.location)) {
         placeMarker(results[0].geometry.location, results[0].name);
     } else {
         console.log("Error: " + status);
