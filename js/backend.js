@@ -48,16 +48,40 @@ function getData() {
         }
 
         console.log(places);
-        placeAllMarkers();
-        // for (var i = 0; i < places.length; i++) {
-        // console.log(places[i]);
-        // searchPlace(places[i]);
-        // }
+        //placeAllMarkers();
+        for (var i = 0; i < places.length; i++) {
+        console.log(places[i]);
+        findCoordinates(places[i]);
+        }
         console.log(loc_list);
 
     });
 }
 
+function findCoordinates(place){
+    var coordinates = loc_list[place];
+    console.log(coordinates);
+    var latlng = {
+        lat: coordinates[0],
+        lng: coordinates[1]
+    };
+    placeMarker(latlng, place);
+}
+
+function placeMarker(latlng, name) {
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+    });
+    var infowindow = new google.maps.InfoWindow({
+        content: name
+    });
+    marker.addListener("click", function() {
+        infowindow.open(map, marker);
+    });
+}
+
+/*
 function searchPlace(input) {
     var req = {
         query: input,
@@ -76,18 +100,7 @@ function processData(results, status) {
     }
 }
 
-function placeMarker(latlng, name) {
-    var marker = new google.maps.Marker({
-        position: latlng,
-        map: map
-    });
-    var infowindow = new google.maps.InfoWindow({
-        content: name
-    });
-    marker.addListener("click", function() {
-        infowindow.open(map, marker);
-    });
-}
+
 // places markers at every single location in the building dataset- just to test
 function placeAllMarkers() {
     for (key in loc_list) {
@@ -98,4 +111,4 @@ function placeAllMarkers() {
     }
 
 
-}
+} */
