@@ -53,9 +53,7 @@ function getData() {
         // console.log(places[i]);
         // searchPlace(places[i]);
         // }
-        $.getJSON("data.js", function(json) {
-            console.log(json[0].name);
-        });
+        console.log(loc_list);
 
     });
 }
