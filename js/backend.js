@@ -48,7 +48,7 @@ function getData() {
         }
 
         console.log(places);
-        // searchPlace("derp");
+        placeAllMarkers();
         // for (var i = 0; i < places.length; i++) {
         // console.log(places[i]);
         // searchPlace(places[i]);
@@ -68,12 +68,12 @@ function searchPlace(input) {
 }
 
 function processData(results, status) {
-    // if (status == google.maps.places.PlacesServiceStatus.OK &&
-    //     map.getBounds().contains(results[0].geometry.location)) {
-    placeMarker(results[0].geometry.location, results[0].name);
-    // } else {
-    //     console.log("Error: " + status);
-    // }x
+    if (status == google.maps.places.PlacesServiceStatus.OK &&
+        map.getBounds().contains(results[0].geometry.location)) {
+        placeMarker(results[0].geometry.location, results[0].name);
+    } else {
+        console.log("Error: " + status);
+    }
 }
 
 function placeMarker(latlng, name) {
@@ -87,4 +87,15 @@ function placeMarker(latlng, name) {
     marker.addListener("click", function() {
         infowindow.open(map, marker);
     });
+}
+// places markers at every single location in the building dataset- just to test
+function placeAllMarkers() {
+    for (key in loc_list) {
+        var location = {};
+        location.lat = parseFloat(loc_list[key][0]); //the values are strings right now- might want to change to ints later? idk time efficiency of parseFloat()
+        location.lng = parseFloat(loc_list[key][1]);
+        placeMarker(location, key);
+    }
+
+
 }
