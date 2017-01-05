@@ -1,4 +1,4 @@
-var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=CS"; //cs classes in spring
+var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=AEP"; //cs classes in spring
 var places = [];
 var counter = 0;
 var map, service;
@@ -67,12 +67,12 @@ function searchPlace(input) {
 }
 
 function processData(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK &&
-        map.getBounds().contains(results[0].geometry.location)) {
-        placeMarker(results[0].geometry.location, results[0].name);
-    } else {
-        console.log("Error: " + status);
-    }
+    // if (status == google.maps.places.PlacesServiceStatus.OK &&
+    //     map.getBounds().contains(results[0].geometry.location)) {
+    placeMarker(results[0].geometry.location, results[0].name);
+    // } else {
+    //     console.log("Error: " + status);
+    // }x
 }
 
 function placeMarker(latlng, name) {
@@ -86,4 +86,18 @@ function placeMarker(latlng, name) {
     marker.addListener("click", function() {
         infowindow.open(map, marker);
     });
+}
+
+function loadJSON(callback) {
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'data.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function() {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+        }
+    };
+    xobj.send(null);
 }
