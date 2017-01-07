@@ -1,4 +1,4 @@
-var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=AEP"; //cs classes in spring
+var url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP17&subject=CS"; //cs classes in spring
 var places = [];
 var counter = 0;
 var map, service;
@@ -50,15 +50,15 @@ function getData() {
         console.log(places);
         //placeAllMarkers();
         for (var i = 0; i < places.length; i++) {
-        console.log(places[i]);
-        findCoordinates(places[i]);
+            console.log("1 " + places[i]);
+            findCoordinates(places[i]);
         }
-        console.log(loc_list);
+        // console.log(loc_list);
 
     });
 }
 
-function findCoordinates(place){
+function findCoordinates(place) {
     var coordinates = loc_list[place];
     console.log(coordinates);
     var latlng = {
